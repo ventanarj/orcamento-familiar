@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Orçamento Familiar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Olá, família</p>
+          <h1>Bem-vindos ao orçamento</h1>
+        </div>
+        <button class="primary">Adicionar lançamento</button>
+      </header>
+
+      <section class="hero">
+        <div>
+          <p class="eyebrow">Saldo do mês</p>
+          <h2 class="balance">R$ 5.240,00</h2>
+          <div class="trend up">+12% em relação ao mês anterior</div>
+          <div class="pill-row">
+            <span class="pill">Renda: R$ 8.500,00</span>
+            <span class="pill warn">Despesas: R$ 3.260,00</span>
+            <span class="pill">Investimentos: R$ 600,00</span>
+          </div>
+        </div>
+        <div class="hero-card">
+          <p class="eyebrow">Próximas contas</p>
+          <div class="bill">
+            <div>
+              <strong>Aluguel</strong>
+              <p class="muted">Vence em 3 dias</p>
+            </div>
+            <span class="amount">R$ 1.500,00</span>
+          </div>
+          <div class="bill">
+            <div>
+              <strong>Energia</strong>
+              <p class="muted">Vence em 5 dias</p>
+            </div>
+            <span class="amount">R$ 320,00</span>
+          </div>
+          <div class="bill">
+            <div>
+              <strong>Internet</strong>
+              <p class="muted">Vence em 8 dias</p>
+            </div>
+            <span class="amount">R$ 150,00</span>
+          </div>
+          <button class="ghost">Ver calendário completo</button>
+        </div>
+      </section>
+
+      <section class="grid">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <p class="eyebrow">Metas familiares</p>
+              <h3>Objetivos do trimestre</h3>
+            </div>
+            <button class="ghost">Editar metas</button>
+          </div>
+          <div class="goals">
+            <div class="goal">
+              <div>
+                <strong>Reserva de emergência</strong>
+                <p class="muted">R$ 8.000 de R$ 10.000</p>
+              </div>
+              <div class="progress">
+                <span style="width: 80%"></span>
+              </div>
+            </div>
+            <div class="goal">
+              <div>
+                <strong>Viagem em família</strong>
+                <p class="muted">R$ 2.400 de R$ 6.000</p>
+              </div>
+              <div class="progress">
+                <span style="width: 40%"></span>
+              </div>
+            </div>
+            <div class="goal">
+              <div>
+                <strong>Reforma da sala</strong>
+                <p class="muted">R$ 1.200 de R$ 4.000</p>
+              </div>
+              <div class="progress">
+                <span style="width: 30%"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <p class="eyebrow">Movimentações rápidas</p>
+              <h3>Próximas ações</h3>
+            </div>
+            <button class="ghost">Ver tudo</button>
+          </div>
+          <div class="actions">
+            <button class="action">
+              <span class="icon">＋</span>
+              <div>
+                <strong>Registrar despesa</strong>
+                <p class="muted">Transporte, mercado, lazer...</p>
+              </div>
+            </button>
+            <button class="action">
+              <span class="icon">⇪</span>
+              <div>
+                <strong>Adicionar receita</strong>
+                <p class="muted">Salário, extra, cashback</p>
+              </div>
+            </button>
+            <button class="action">
+              <span class="icon">★</span>
+              <div>
+                <strong>Planejar mês</strong>
+                <p class="muted">Distribua limites por categoria</p>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <div class="card span2">
+          <div class="card-header">
+            <div>
+              <p class="eyebrow">Resumo por categoria</p>
+              <h3>Onde o dinheiro está indo</h3>
+            </div>
+            <button class="ghost">Ver detalhes</button>
+          </div>
+          <div class="categories">
+            <div class="category">
+              <div class="dot"></div>
+              <div>
+                <strong>Moradia</strong>
+                <p class="muted">R$ 1.900 • 36%</p>
+              </div>
+              <span class="pill">-2% vs mês anterior</span>
+            </div>
+            <div class="category">
+              <div class="dot green"></div>
+              <div>
+                <strong>Mercado</strong>
+                <p class="muted">R$ 1.050 • 20%</p>
+              </div>
+              <span class="pill warn">+4% vs mês anterior</span>
+            </div>
+            <div class="category">
+              <div class="dot yellow"></div>
+              <div>
+                <strong>Transporte</strong>
+                <p class="muted">R$ 480 • 9%</p>
+              </div>
+              <span class="pill">-1% vs mês anterior</span>
+            </div>
+            <div class="category">
+              <div class="dot blue"></div>
+              <div>
+                <strong>Lazer</strong>
+                <p class="muted">R$ 320 • 6%</p>
+              </div>
+              <span class="pill">Estável</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <script src="/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,16 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.appRouter = void 0;
+const express_1 = require("express");
+const transaction_controller_1 = require("./api/transaction/transaction.controller");
+const budget_controller_1 = require("./api/budget/budget.controller");
+const account_controller_1 = require("./api/account/account.controller");
+const category_controller_1 = require("./api/category/category.controller");
+const household_controller_1 = require("./api/household/household.controller");
+const appRouter = (0, express_1.Router)();
+exports.appRouter = appRouter;
+appRouter.use("/transactions", transaction_controller_1.transactionController);
+appRouter.use("/budget", budget_controller_1.budgetController);
+appRouter.use("/accounts", account_controller_1.accountController);
+appRouter.use("/categories", category_controller_1.categoryController);
+appRouter.use("/households", household_controller_1.householdController);

@@ -1,0 +1,176 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = env("DATABASE_PROVIDER")
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String      @id @default(cuid())
+  email        String      @unique
+  passwordHash String
+  name         String
+  household    Household?  @relation(fields: [householdId], references: [id])
+  householdId  String?
+  role         UserRole    @default(USER)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+model Household {
+  id           String      @id @default(cuid())
+  name         String
+  users        User[]
+  accounts     Account[]
+  categories   Category[]
+  transactions Transaction[]
+  budgetCycles BudgetCycle[]
+  recurrences  Recurrence[]
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+}
+
+model Account {
+  id           String      @id @default(cuid())
+  household    Household   @relation(fields: [householdId], references: [id])
+  householdId  String
+  name         String
+  type         AccountType
+  balance      Decimal     @default(0)
+  currency     String      @default("BRL")
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  transactions Transaction[]
+}
+
+enum AccountType {
+  CHECKING
+  SAVINGS
+  CREDIT_CARD
+  INVESTMENT
+}
+
+model Category {
+  id             String      @id @default(cuid())
+  household      Household   @relation(fields: [householdId], references: [id])
+  householdId    String
+  name           String
+  parentId       String?     
+  parent         Category?   @relation("CategoryChildren", fields: [parentId], references: [id])
+  children       Category[]  @relation("CategoryChildren")
+  allocation     Float       @default(0)
+  limit          Decimal     @default(0)
+  type           CategoryType
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+  transactions   Transaction[]
+  budgetAllocations BudgetAllocation[]
+}
+
+enum CategoryType {
+  INCOME
+  EXPENSE
+  TRANSFER
+}
+
+model Transaction {
+  id             String          @id @default(cuid())
+  household      Household       @relation(fields: [householdId], references: [id])
+  householdId    String
+  account        Account         @relation(fields: [accountId], references: [id])
+  accountId      String
+  category       Category?       @relation(fields: [categoryId], references: [id])
+  categoryId     String?
+  description    String
+  date           DateTime
+  amount         Decimal
+  type           TransactionType
+  status         TransactionStatus
+  isPlanned      Boolean         @default(false)
+  isReconciled   Boolean         @default(false)
+  recurrence     Recurrence?     @relation(fields: [recurrenceId], references: [id])
+  recurrenceId   String?
+  installment    Int?            
+  totalInstallments Int?
+  source         String?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+}
+
+enum TransactionType {
+  INCOME
+  EXPENSE
+  TRANSFER
+}
+
+enum TransactionStatus {
+  PAST
+  PRESENT
+  FUTURE
+  LATE
+}
+
+model Recurrence {
+  id           String       @id @default(cuid())
+  household    Household    @relation(fields: [householdId], references: [id])
+  householdId  String
+  frequency    RecurrenceFrequency
+  startDate    DateTime
+  endDate      DateTime?
+  installments Int?
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  transactions Transaction[]
+}
+
+enum RecurrenceFrequency {
+  MONTHLY
+  WEEKLY
+  DAILY
+  ANNUAL
+}
+
+model BudgetCycle {
+  id            String            @id @default(cuid())
+  household     Household         @relation(fields: [householdId], references: [id])
+  householdId   String
+  name          String
+  startDate     DateTime
+  endDate       DateTime
+  baseAmount    Decimal
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+  allocations   BudgetAllocation[]
+}
+
+model BudgetAllocation {
+  id             String           @id @default(cuid())
+  budgetCycle    BudgetCycle      @relation(fields: [budgetCycleId], references: [id])
+  budgetCycleId  String
+  category       Category         @relation(fields: [categoryId], references: [id])
+  categoryId     String
+  percent        Float
+  limit          Decimal
+  plannedAmount  Decimal
+  weeklyAllocations WeeklyAllocation[]
+}
+
+model WeeklyAllocation {
+  id                 String           @id @default(cuid())
+  budgetAllocation   BudgetAllocation @relation(fields: [budgetAllocationId], references: [id])
+  budgetAllocationId String
+  weekIndex          Int
+  percent            Float
+  reserved           Decimal
+  realized           Decimal
+  balance            Decimal
+  redistributedIn    Decimal          @default(0)
+  redistributedOut   Decimal          @default(0)
+}
